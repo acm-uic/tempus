@@ -1,5 +1,25 @@
 # tempus
 
+[![GitHub Actions](https://github.com/bmiddha/tempus/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/bmiddha/tempus/actions?query=workflow%3ACI)
+
+A clock replacement for the office of [ACM@UIC](https://acm.cs.uic.edu).
+
+## Features
+
+- Time and Date
+- CTA Bus and Train Arrival Times
+- Weather from DarkSky
+- Events from Google Calendar
+- Slackbot
+
+## WebApp Deployment
+
+The app is packaged into a tiny (based on [nginx](https://hub.docker.com/_/nginx)) and easy to deploy docker container: [bmiddha/tempus](https://hub.docker.com/r/bmiddha/tempus).
+
+```sh
+docker run -d --restart=always -p 8080:80 bmiddha/tempus
+```
+
 ## Deploying a Raspberry Pi as a Kiosk
 
 ### Using `pi-kiosk.sh`
@@ -7,6 +27,7 @@
 Usage: `sudo bash pi-kiosk.sh <WEBSITE> <DISPLAY ORIENTATION: normal|left|right|inverted>`
 
 Example:
+
 ```sh
 sudo bash pi-kiosk.sh http://localhost:8080 normal
 ```

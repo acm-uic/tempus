@@ -1,22 +1,32 @@
 import React from 'react';
-import Clock from './components/Clock';
-import Weather from './components/Weather';
-import Events from './components/Events';
-import Message from './components/Message';
-import Footer from './components/Footer';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Config from './pages/Config';
 
 const App: React.FC = () => {
+
+  if (window.location.search.length !== 0) {
+    const search = window.location.search.substring(1);
+    const params = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+    Object.keys(params).forEach(key => {
+      if (params[key].trim().length !== 0) {
+        localStorage.setItem(key, decodeURIComponent(params[key]));
+      }
+    });
+    window.location.href = '/';
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <Clock />
-        <Weather />
-        <Events />
-        <Message />
-        <Footer />
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path='/config'>
+          <Config />
+        </Route>
+        <Route path='/'>
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
