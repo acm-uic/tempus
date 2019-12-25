@@ -42,17 +42,15 @@ cat <<EOF >/etc/systemd/system/getty@tty1.service.d/noclear.conf
 TTYVTDisallocate=no
 EOF
 
-echo "Configuring Locale and Timezone"
+echo "Configuring timezone, locale, and keyboard layout."
 
 cat <<EOF > /etc/default/keyboard
 XKBMODEL="pc105"
 XKBLAYOUT="us"
 XKBVARIANT=""
 XKBOPTIONS=""
-
 BACKSPACE="guess"
 EOF
-
 timedatectl set-ntp true
 timedatectl set-timezone America/Chicago
 cp /etc/locale.gen /etc/locale.gen.bak

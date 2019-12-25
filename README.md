@@ -1,18 +1,47 @@
+<img align="right" src="public/images/logo120.png" />
+
 # tempus
 
 [![GitHub Actions](https://github.com/bmiddha/tempus/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/bmiddha/tempus/actions?query=workflow%3ACI)
+[![Release](https://img.shields.io/website?label=release&url=https%3A%2F%2Ftempus.bmiddha.dev%2F)](https://tempus.bmiddha.dev)
+[![License](https://img.shields.io/github/license/bmiddha/tempus)](https://github.com/bmiddha/tempus/blob/master/LICENSE)
 
 A clock replacement for the office of [ACM@UIC](https://acm.cs.uic.edu).
 
 ## Features
 
-- Time and Date
-- CTA Bus and Train Arrival Times
-- Weather from DarkSky
-- Events from Google Calendar
-- Slackbot
+### Time
 
-## WebApp Deployment
+Time and date for the client's timezone.
+
+### Transit
+
+Upcoming arrivals for CTA Bus and Train stops specified by the user.
+
+### Weather
+
+Weather for specified location by the user from DarkSky's Weather API.
+
+### Events
+
+Upcoming events for the specifed calendar ids from Google Calendar API.
+
+### SlackBot
+
+Interactions using Slack's Real Time Messaging API. The app can interpret mentions and direct messages.
+
+## Configuration
+
+| Feature  | Configuration Name                                                  |
+| -------- | ------------------------------------------------------------------- |
+| Time     |                                                                     |
+| Transit  | `ctabusapikey`, `ctabusstops`, `ctatrainapikey`, `ctatrainstations` |
+| Weather  | `darkskyapikey`, `latlong`                                          |
+| Events   | `googleapikey`, `googlecalendarids`                                 |
+| SlackBot | `slackbottoken`                                                     |
+| GitHub   | `githubrepo`                                                        |
+
+## Docker Container Deployment
 
 The app is packaged into a tiny (based on [nginx](https://hub.docker.com/_/nginx)) and easy to deploy docker container: [bmiddha/tempus](https://hub.docker.com/r/bmiddha/tempus).
 
@@ -59,16 +88,22 @@ TTYVTDisallocate=no
 EOF
 ```
 
-Configure timezone and locale.
+Configure timezone, locale, and keyboard layout.
 
 ```sh
+cat <<EOF > /etc/default/keyboard
+XKBMODEL="pc105"
+XKBLAYOUT="us"
+XKBVARIANT=""
+XKBOPTIONS=""
+BACKSPACE="guess"
+EOF
 sudo timedatectl set-ntp true
 sudo timedatectl set-timezone America/Chicago
 sudo cp /etc/locale.gen /etc/locale.gen.bak
 echo 'en_US.UTF-8 UTF-8' | sudo tee /etc/locale.gen
-sudo locale-gen
+sudo locale-gen en_US.UTF-8
 sudo update-locale en_US.UTF-8
-sudo dpkg-reconfigure locales
 ```
 
 Run system, and firmware updates.
@@ -107,5 +142,5 @@ EOF
 Start openbox on boot
 
 ```sh
-echo [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor | sudo tee -a /home/pi/.profile
+echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor' | sudo tee -a /home/pi/.profile
 ```

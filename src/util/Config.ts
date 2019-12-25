@@ -35,7 +35,7 @@ export const EventsConfig = {
 export const MessageConfig = {
     GitHub: {
         ApiHost: 'https://api.github.com/',
-        Repo: 'bmiddha/simple-js-clock',
+        Repo: 'bmiddha/tempus',
         Features: ['contributors', 'issues', 'pulls'],
     },
     Slack: {
