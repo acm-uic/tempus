@@ -1,50 +1,45 @@
-import React, { PureComponent } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { GetForecast } from '../util/Weather';
 import { DarkSkyConfig } from '../util/Config';
 import * as DarkSkyApi from '../models/DarkSkyApi';
 import { GetUserConfig } from '../util/UserConfig';
 
-interface WeatherState {
-    forecast: DarkSkyApi.Response | undefined;
+interface WeatherProps {
+    position: Position | undefined;
 }
 
-class Weather extends PureComponent<{}, WeatherState> {
+const Weather: FC<WeatherProps> = ({ position }: WeatherProps) => {
 
-    constructor(props: {}) {
-        super(props);
-        this.state = {
-            forecast: undefined
-        };
-    }
+    const [forecast, setForecast] = useState<DarkSkyApi.Response>();
 
-    componentDidMount() {
-        this.update();
-        setInterval(this.update, DarkSkyConfig.UpdateInterval);
-    }
-
-    update = async () => {
-        const weatherLatLong = GetUserConfig({ name: DarkSkyConfig.LatLongName });
-        const apiKey = GetUserConfig({ name: DarkSkyConfig.ApiKeyName });
-        if (weatherLatLong && apiKey)
-            this.setState({
-                forecast: await GetForecast({ weatherLatLong, apiKey }),
-            });
-    }
-
-
-    render = () => {
-        if (this.state.forecast && this.state.forecast.currently) {
-            const { currently } = this.state.forecast;
-            return (
-                <>
-                    <div>
-                        {currently.summary} | {currently.apparentTemperature}°C | {(currently.apparentTemperature * 9 / 5) + 32}°F
-                    </div>
-                </>
-            )
+    useEffect(() => {
+        const update = async () => {
+            const weatherLatLong = position ? `${position.coords.latitude},${position.coords.longitude}` : GetUserConfig({ name: DarkSkyConfig.LatLongName });
+            const apiKey = GetUserConfig({ name: DarkSkyConfig.ApiKeyName });
+            if (weatherLatLong && apiKey)
+                setForecast(await GetForecast({ weatherLatLong, apiKey }));
         }
-        else return (<></>);
-    };
+        update();
+        const updateInterval = setInterval(update, DarkSkyConfig.UpdateInterval);
+        return (() => {
+            clearInterval(updateInterval);
+        });
+    }, [position]);
+
+    if (forecast && forecast.currently) {
+        const { summary, apparentTemperature } = forecast.currently;
+        return (
+            <>
+                <h1>
+                    {summary}
+                </h1>
+                <h2>
+                    {Math.trunc(apparentTemperature)}°C {Math.trunc((apparentTemperature * 9 / 5) + 32)}°F
+                </h2>
+            </>
+        )
+    }
+    else return (<></>);
 }
 
 export default Weather;

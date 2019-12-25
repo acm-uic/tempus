@@ -1,43 +1,39 @@
-import React, { PureComponent } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Routes } from '../models/CtaTrainApi';
 import { CtaTrainConfig } from '../util/Config'
+
 interface TrainProps {
     route: Routes;
     arrival: Date;
     destination: string;
 };
 
-interface TrainState {
-    eta: number;
-};
+const Train: FC<TrainProps> = ({ route, destination, arrival }: TrainProps) => {
 
-class Train extends PureComponent<TrainProps, TrainState> {
-    constructor(props: TrainProps) {
-        super(props);
-        this.state = {
-            eta: Math.trunc((props.arrival.getTime() - new Date().getTime()) / 1000 / 60)
+    const [eta, setEta] = useState<number>();
+
+    useEffect(() => {
+        const update = () => {
+            setEta(Math.trunc((arrival.getTime() - new Date().getTime()) / 1000 / 60));
         };
-    }
 
-    componentDidMount() {
-        setInterval(this.update, CtaTrainConfig.CountdownInterval);
-    }
-
-    update = () => {
-        this.setState({
-            eta: Math.trunc((this.props.arrival.getTime() - new Date().getTime()) / 1000 / 60)
+        update();
+        const updateInterval = setInterval(update, CtaTrainConfig.CountdownInterval);
+        return (() => {
+            clearInterval(updateInterval);
         });
-    };
+    }, [arrival]);
 
-    render = () => {
-        const { route, destination } = this.props;
-        const { eta } = this.state;
-        return (<>
-            <div className='train'>
-                {route} | {destination} | {eta}
-            </div>
-        </>);
-    };
+    return (
+        <>
+            <h1>
+                {route} - {destination}
+            </h1>
+            <h2>
+                {eta} minutes
+        </h2>
+        </>
+    );
 }
 
 export default Train;
