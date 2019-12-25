@@ -8,9 +8,17 @@ interface EventProps {
 const Event: FC<EventProps> = (props: EventProps) => {
     const { summary, location, start, end } = props.ev;
     return (
-        <div>
-            {summary ? summary : 'Busy'} | {start ? (start.dateTime ? start.dateTime : start.date) : <></>} | {end ? (end.dateTime ? end.dateTime : end.date) : <></>} | {location}
-        </div>
+        <>
+            <h1>
+                {summary ? summary : 'Busy'}
+            </h1>
+            <h2>
+                {start ? (start.dateTime ? start.dateTime : start.date) : <></>} | {end ? (end.dateTime ? end.dateTime : end.date) : <></>}
+            </h2>
+            <h3>
+                {location}
+            </h3>
+        </>
     );
 }
 

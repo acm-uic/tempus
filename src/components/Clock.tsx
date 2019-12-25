@@ -1,50 +1,38 @@
-import React, { PureComponent } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { DaysShortNames, MonthShortNames } from '../models/Date';
 import { ClockConfig } from '../util/Config';
 
-interface ClockState {
-    time: Date;
-}
+const Clock: FC = () => {
+    const [now, setNow] = useState<Date>(new Date());
 
-class Clock extends PureComponent<{}, ClockState> {
 
-    constructor(props: {}) {
-        super(props);
-        this.state = {
-            time: new Date(),
-        }
-    }
+    useEffect(() => {
+        const update = () => { setNow(new Date()) };
+        update();
+        const updateInterval = setInterval(update, ClockConfig.UpdateInterval);
+        return (() => {
+            clearInterval(updateInterval);
+        });
+    }, []);
 
-    componentDidMount() {
-        setInterval(this.update, ClockConfig.UpdateInterval);
-    }
+    const t_h = now.getHours();
+    const t_m = now.getMinutes();
+    const t_s = now.getSeconds();
 
-    update = () => {
-        this.setState({
-            time: new Date(),
-        })
-    };
+    const d_d = DaysShortNames[now.getDay()];
+    const d_m = MonthShortNames[now.getMonth()];
+    const d_dt = now.getDate();
 
-    render() {
-        const t_h = this.state.time.getHours();
-        const t_m = this.state.time.getMinutes();
-        const t_s = this.state.time.getSeconds();
-
-        const d_d = DaysShortNames[this.state.time.getDay()];
-        const d_m = MonthShortNames[this.state.time.getMonth()];
-        const d_dt = this.state.time.getDate();
-
-        return (
-            <>
-                <div className='clock-time'>
-                    {(t_h % 12 === 0) ? '12' : (t_h % 12).toString().padStart(2, '0')}:
+    return (
+        <>
+            <h1>
+                {(t_h % 12 === 0) ? '12' : (t_h % 12).toString().padStart(2, '0')}:
                     {(t_m).toString().padStart(2, '0')}:
                     {(t_s).toString().padStart(2, '0')} {t_h < 12 ? 'AM' : 'PM'}
-                </div>
-                <div className='clock-date'>{d_d}, {d_m} {d_dt}</div>
-            </>
-        );
-    }
+            </h1>
+            <h2>{d_d}, {d_m} {d_dt}</h2>
+        </>
+    );
 }
 
 export default Clock;
