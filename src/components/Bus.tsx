@@ -1,10 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import { CtaBusConfig } from '../util/Config'
+import { Direction } from '../models/CtaBusApi';
 
 interface BusProps {
     route: string;
     arrival: Date;
-    direction: string;
+    direction: Direction;
 };
 
 const Bus: FC<BusProps> = ({ route, direction, arrival }: BusProps) => {

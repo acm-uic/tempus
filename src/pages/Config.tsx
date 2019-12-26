@@ -79,8 +79,8 @@ const Config: FC = () => {
                         ))}
                     </fieldset>
                 ))}
-                <input type='checkbox' name='showsecrets' onChange={() => toggleShowSecrets(!showSecrets)} />
-                <label htmlFor='showsecrets'>Show Secrets</label><br />
+                <input type='checkbox' name='showSecrets' onChange={() => toggleShowSecrets(!showSecrets)} />
+                <label htmlFor='showSecrets'>Show Secrets</label><br />
                 <input type='button' value='Clear Stored Config' onClick={clearConfig} />
                 <input type='submit' value='Submit' />
             </form>

@@ -1,14 +1,16 @@
 import { CtaTrainConfig } from './Config';
 import * as CtaTrainApi from '../models/CtaTrainApi';
+
 interface GetArrivalsParams {
-    stations: string;
+    routes: string;
     apiKey: string;
+    position: Position;
 }
 
-export const GetArrivals = async ({ stations, apiKey }: GetArrivalsParams): Promise<CtaTrainApi.Response> => {
-    return new Promise((resolve, reject) => {
-        fetch(`${CtaTrainConfig.ApiHost}/api/1.0/ttarrivals.aspx?key=${apiKey}&mapid=${stations}&max=10&outputType=JSON`)
-            .then(res => resolve(res.json()))
-            .catch(reject);
-    });
+export const GetArrivals = async ({ routes, apiKey, position }: GetArrivalsParams): Promise<any> => {
+    if (routes) {
+        const { latitude, longitude } = position.coords;
+        const routesRes = await (await fetch(`${CtaTrainConfig.ApiHost}/api/1.0/ttpositions.aspx?key=${apiKey}&rt=${routes}&outputType=JSON`)).json()
+        routesRes
+    }
 }

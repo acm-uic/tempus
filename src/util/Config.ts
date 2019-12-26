@@ -1,25 +1,26 @@
 export const CtaBusConfig = {
-    ApiHost: 'https://xorigin.azurewebsites.net/ctabus/',
+    ApiHost: `${window.location.origin}/ctabus/`,
     ApiKeyName: 'ctabusapikey',
-    StopsName: 'ctabusstops',
+    Routes: 'ctabusroutes',
     CountdownInterval: 5000,
 }
 
 export const CtaTrainConfig = {
-    ApiHost: 'https://xorigin.azurewebsites.net/ctatrain/',
+    ApiHost: `${window.location.origin}/ctatrain/`,
     ApiKeyName: 'ctatrainapikey',
-    StationsName: 'ctatrainstations',
+    Routes: 'ctatrainroutes',
     CountdownInterval: 5000,
 }
 
 export const TransitConfig = {
+    GTFSHost: `${window.location.origin}/ctagtfs/`,
     CtaTrain: CtaTrainConfig,
     CtaBus: CtaBusConfig,
     UpdateInterval: 60000,
 }
 
 export const DarkSkyConfig = {
-    ApiHost: 'https://xorigin.azurewebsites.net/darksky/',
+    ApiHost: `${window.location.origin}/darksky/`,
     ApiKeyName: 'darkskyapikey',
     LatLongName: 'latlong',
     UpdateInterval: 60000,

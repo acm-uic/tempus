@@ -14,7 +14,7 @@ export interface Prediction {
     dstp: number;
     rt: string;
     rtdd: string;
-    rtdir: string;
+    rtdir: Direction;
     des: string;
     prdtm: string;
     tablockid: string;
@@ -27,4 +27,10 @@ export interface Prediction {
 export interface Error {
     stpid: string;
     msg: string;
+}
+export enum Direction {
+    Northbound,
+    Eastbound,
+    Southbound,
+    Westbound,
 }
