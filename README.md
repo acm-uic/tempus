@@ -49,6 +49,23 @@ The app is packaged into a tiny (based on [nginx](https://hub.docker.com/_/nginx
 docker run -d --restart=always -p 8080:80 bmiddha/tempus
 ```
 
+## API Proxy
+
+The app dosen't really have a backend, the idea was to have everything running in the client. But, the app requires an API proxy to enable [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+
+API hosts can be changed in [/src/util/Config.ts](/src/util/Config.ts).
+
+### Azure Functions Proxy
+
+One easy solution that does not require any code is [Azure Functions Proxies](https://docs.microsoft.com/en-us/azure/azure-functions/functions-proxies).
+
+The API proxy configuration is defined in [proxies.json](/azure-functions/proxies.json).
+
+#### Azure Functions App Configuration
+
+1. Enable CORS for the app origin ([https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings#cors](https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings#cors)).
+2. Enable `AZURE_FUNCTION_PROXY_BACKEND_URL_DECODE_SLASHES` ([https://docs.microsoft.com/en-us/azure/azure-functions/functions-app-settings#azure_function_proxy_backend_url_decode_slashes](https://docs.microsoft.com/en-us/azure/azure-functions/functions-app-settings#azure_function_proxy_backend_url_decode_slashes)).
+
 ## Deploying a Raspberry Pi as a Kiosk
 
 ### Using `pi-kiosk.sh`

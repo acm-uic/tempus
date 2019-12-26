@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json.schemastore.org/proxies",
+    "proxies": {
+        "ctabus": {
+            "matchCondition": {
+                "route": "/ctabus/{*query}",
+                "methods": [
+                    "GET"
+                ]
+            },
+            "backendUri": "http://www.ctabustracker.com/{query}"
+        },
+        "ctatrain": {
+            "matchCondition": {
+                "route": "/ctatrain/{*query}",
+                "methods": [
+                    "GET"
+                ]
+            },
+            "backendUri": "https://lapi.transitchicago.com/{query}"
+        },
+        "transitchicago": {
+            "matchCondition": {
+                "route": "/transitchicago/{*query}",
+                "methods": [
+                    "GET"
+                ]
+            },
+            "backendUri": "https://api.darksky.net/{query}"
+        },
+        "darksky": {
+            "matchCondition": {
+                "route": "/darksky/{*query}",
+                "methods": [
+                    "GET"
+                ]
+            },
+            "backendUri": "https://api.darksky.net/{query}"
+        }
+    }
+}
