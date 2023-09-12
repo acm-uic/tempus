@@ -2,9 +2,9 @@
 
 # tempus
 
-[![GitHub Actions](https://github.com/bmiddha/tempus/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/bmiddha/tempus/actions?query=workflow%3ACI)
-[![Release](https://img.shields.io/website?label=release&url=https%3A%2F%2Ftempus.bmiddha.dev%2F)](https://tempus.bmiddha.dev)
-[![License](https://img.shields.io/github/license/bmiddha/tempus)](https://github.com/bmiddha/tempus/blob/master/LICENSE)
+[![GitHub Actions](https://github.com/acm-uic/tempus/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/acm-uic/tempus/actions?query=workflow%3ACI)
+[![Release](https://img.shields.io/website?label=release&url=https%3A%2F%2Ftempus.acm-uic.dev%2F)](https://tempus.acm-uic.dev)
+[![License](https://img.shields.io/github/license/acm-uic/tempus)](https://github.com/acm-uic/tempus/blob/master/LICENSE)
 
 A clock replacement for the office of [ACM@UIC](https://acm.cs.uic.edu).
 
@@ -43,10 +43,11 @@ Interactions using Slack's Real Time Messaging API. The app can interpret mentio
 
 ## Docker Container Deployment
 
-The app is packaged into a tiny (based on [nginx](https://hub.docker.com/_/nginx)) and easy to deploy docker container: [bmiddha/tempus](https://hub.docker.com/r/bmiddha/tempus).
+The app is packaged into a tiny (based on [nginx](https://hub.docker.com/_/nginx)).
 
 ```sh
-docker run -d --restart=always -p 8080:80 bmiddha/tempus
+docker build --tag acm-uic/tempus
+docker run -d --restart=always -p 8080:80 acm-uic/tempus
 ```
 
 ## Deploying a Raspberry Pi as a Kiosk

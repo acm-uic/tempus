@@ -2,7 +2,7 @@ import  { FC } from 'react';
 
 const Footer: FC<{}> = () => (
     <>
-        <pre>GitHub: github.com/bmiddha/Tempus</pre>
+        <pre>GitHub: github.com/acm-uic/Tempus</pre>
     </>
 );
 

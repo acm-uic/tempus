@@ -35,7 +35,7 @@ export const EventsConfig = {
 export const MessageConfig = {
     GitHub: {
         ApiHost: 'https://api.github.com/',
-        Repo: 'bmiddha/tempus',
+        Repo: 'acm-uic/tempus',
         Features: ['contributors', 'issues', 'pulls'],
     },
     Slack: {
