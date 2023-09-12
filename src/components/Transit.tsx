@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import  { FC, useState, useEffect } from 'react';
 import Bus from './Bus';
 import Train from './Train';
 import { GetPredictions } from '../util/CtaBus';
@@ -9,7 +9,7 @@ import * as CtaBusApi from '../models/CtaBusApi';
 import * as CtaTrainApi from '../models/CtaTrainApi';
 
 interface TransitProps {
-    position: Position | undefined;
+    position: GeolocationPosition | undefined;
 }
 
 const Transit: FC<TransitProps> = () => {

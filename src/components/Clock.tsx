@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import  { FC, useEffect, useState } from 'react';
 import { DaysShortNames, MonthShortNames } from '../models/Date';
 import { ClockConfig } from '../util/Config';
 

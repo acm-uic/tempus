@@ -1,11 +1,11 @@
-import React, { FC, useEffect, useState } from 'react';
+import  { FC, useEffect, useState } from 'react';
 import { GetForecast } from '../util/Weather';
 import { DarkSkyConfig } from '../util/Config';
 import * as DarkSkyApi from '../models/DarkSkyApi';
 import { GetUserConfig } from '../util/UserConfig';
 
 interface WeatherProps {
-    position: Position | undefined;
+    position: GeolocationPosition | undefined;
 }
 
 const Weather: FC<WeatherProps> = ({ position }: WeatherProps) => {

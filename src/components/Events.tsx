@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import  { FC, useEffect, useState } from 'react';
 import Event from './Event';
 import * as GCalApi from '../models/GCalApi';
 import { GetEvents } from '../util/Events';

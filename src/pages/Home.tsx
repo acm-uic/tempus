@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import  { FC, useEffect, useState } from 'react';
 import Clock from '../components/Clock';
 import Weather from '../components/Weather';
 import Events from '../components/Events';
@@ -8,10 +8,10 @@ import Footer from '../components/Footer';
 
 const Home: FC = () => {
 
-    const [position, setPosition] = useState<Position>();
+    const [position, setPosition] = useState<GeolocationPosition>();
 
     useEffect(() => {
-        const getPosition = (options: PositionOptions | undefined): Promise<Position> => {
+        const getPosition = (options: PositionOptions | undefined): Promise<GeolocationPosition> => {
             return new Promise((resolve, reject) => {
                 navigator.geolocation.getCurrentPosition(resolve, reject, options);
             });
